@@ -46,23 +46,38 @@ Since this runs advanced AI models locally, you need the following hardware:
 
 ## Detailed Setup Instructions (For Beginners!)
 
-Don't worry if you aren't a programmer! Just follow these steps one by one to get your Telegram bot running.
+Don't worry if you aren't a programmer! Just follow these steps from A to Z to set up the core AI model and get your Telegram bot running.
 
-### Step 1: Prepare the Environment
-This project assumes you already have a folder called `tribe-env` and `tribev2-cache` downloaded in your home folder (`~`).
+### Step 1: Setting up the Meta TRIBE v2 Model & Environment
+Because this bot runs heavy local AI models (instead of sending data to the cloud), you need to set up the engine first.
 
-First, open your terminal (command line) and activate the virtual environment so you can safely install things:
+1. **Create a Virtual Environment:** 
+   You need an isolated Python environment for all the heavy dependencies. Open your terminal in your home folder and run:
+   ```bash
+   python3 -m venv ~/tribe-env
+   source ~/tribe-env/bin/activate
+   ```
+2. **Download the Model Cache:**
+   You must acquire the Meta TRIBE v2 model cache and place it in your home directory at `~/tribev2-cache/`. This folder contains the pre-trained weights for:
+   - **Whisper (small)** for audio transcription
+   - **LLaMA 3.2-3B** for text generation and reasoning
+   - **V-JEPA2** for visual feature extraction
+   - **Wav2Vec-BERT** for audio features
+3. **Configure the Model for CPU:**
+   Inside `~/tribev2-cache/`, there is a `config.yaml` file. Because you are running this without a massive GPU, ensure the following settings are present in that file:
+   - `device: cpu`
+   - `llm_model: LLaMA 3.2-3B`
+   *(Note: Do not modify these settings once they are working!)*
+
+### Step 2: Install Project Requirements
+Now that the environment is set up, make sure it is activated, navigate to your `mind-agent` project folder, and install the required tools:
 ```bash
 source ~/tribe-env/bin/activate
-```
-*(You will need to run this command every time you open a new terminal to work on this project!)*
-
-Next, install all the required software packages:
-```bash
 pip install -r requirements.txt
 ```
+*(You will need to run the `source` command every time you open a new terminal to work on this project!)*
 
-### Step 2: Get Your Telegram Bot Token
+### Step 3: Get Your Telegram Bot Token
 To connect the code to Telegram, you need to create a bot on Telegram and get a secret "Token".
 1. Open the Telegram app on your phone or computer.
 2. Search for **@BotFather** (make sure it has a blue verified checkmark).
@@ -70,7 +85,7 @@ To connect the code to Telegram, you need to create a bot on Telegram and get a 
 4. It will ask for a name (e.g., "My Mind Agent") and a username that ends in "bot" (e.g., "mind_agent_test_bot").
 5. BotFather will give you a message with your **Token** (it looks like a long string of random letters and numbers). Copy this entire token!
 
-### Step 3: Connect the Token to the Code
+### Step 4: Connect the Token to the Code
 We need to put that token into a hidden configuration file.
 1. In your terminal, inside the `mind-agent` folder, make a copy of the example environment file:
    ```bash
