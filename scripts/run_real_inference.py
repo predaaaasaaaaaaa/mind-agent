@@ -25,7 +25,7 @@ def main():
     print("⏳ Loading model and running TRIBE v2 (this will take time on CPU)...")
     
     predictor = BrainPredictor()
-    preds = predictor.predict(str(video_path))
+    preds = predictor.predict(video_path)
     print(f"✅ Inference complete. Predictions shape: {preds.shape}")
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -33,7 +33,7 @@ def main():
     out_report = OUTPUTS_DIR / f"real_report_{timestamp}.txt"
     
     print("\n🎨 Rendering heatmap...")
-    render_brain_heatmap(preds, str(out_img), title="Real Brain Activation")
+    render_brain_heatmap(preds, out_img, title="Real Brain Activation")
     print(f"   Saved to {out_img}")
     
     report_text = ""

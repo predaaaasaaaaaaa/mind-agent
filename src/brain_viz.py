@@ -3,7 +3,7 @@ from nilearn import datasets, plotting
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-def render_brain_heatmap(preds: np.ndarray, output_path: str, title: str = "") -> str:
+def render_brain_heatmap(preds: np.ndarray, output_path: Path, title: str = "") -> Path:
     """
     Render a brain heatmap PNG from predictions.
     Uses fsaverage5. 
@@ -41,9 +41,9 @@ def render_brain_heatmap(preds: np.ndarray, output_path: str, title: str = "") -
     
     fig.savefig(output_path, bbox_inches='tight')
     plt.close(fig)
-    return str(output_path)
+    return output_path
 
-def render_comparison(actual: np.ndarray, target: np.ndarray, output_path: str) -> str:
+def render_comparison(actual: np.ndarray, target: np.ndarray, output_path: Path) -> Path:
     """
     Render a side-by-side comparison (left = actual, right = target).
     """
@@ -89,7 +89,8 @@ def render_comparison(actual: np.ndarray, target: np.ndarray, output_path: str) 
 
     fig.savefig(output_path, bbox_inches='tight')
     plt.close(fig)
-    return str(output_path)
+    return output_path
+
 
 if __name__ == "__main__":
     fake_preds = np.random.randn(20, 20484)

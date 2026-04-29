@@ -3,6 +3,7 @@ import asyncio
 import logging
 from datetime import datetime
 from dotenv import load_dotenv
+from pathlib import Path
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 
@@ -15,12 +16,12 @@ from src.config import OUTPUTS_DIR
 
 # Setup logging to file
 logging.basicConfig(
-    filename=str(OUTPUTS_DIR / "errors.log"),
+    filename=OUTPUTS_DIR / "errors.log",
     level=logging.ERROR,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 
-def run_pipeline(video_path: str, goal: str = None) -> tuple[str, str]:
+def run_pipeline(video_path: Path, goal: str = None) -> tuple[Path, str]:
     """
     Run the heavy inference pipeline synchronously.
     Returns a tuple of (image_path, report_text).
@@ -29,7 +30,7 @@ def run_pipeline(video_path: str, goal: str = None) -> tuple[str, str]:
     preds = predictor.predict(video_path)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    image_path = str(OUTPUTS_DIR / f"brain_{timestamp}.png")
+    image_path = OUTPUTS_DIR / f"brain_{timestamp}.png"
     
     render_brain_heatmap(preds, image_path, title="Brain Activation Heatmap")
     
@@ -80,7 +81,7 @@ async def handle_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     user_id = update.message.from_user.id
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    video_path = str(OUTPUTS_DIR / f"incoming_{user_id}_{timestamp}.mp4")
+    video_path = OUTPUTS_DIR / f"incoming_{user_id}_{timestamp}.mp4"
     
     try:
         # Download video

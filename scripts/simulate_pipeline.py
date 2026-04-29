@@ -21,7 +21,7 @@ def simulate():
     
     # 3. Visualization
     print("\n[3/6] Rendering brain heatmap...")
-    out_img = str(OUTPUTS_DIR / "sim_brain.png")
+    out_img = OUTPUTS_DIR / "sim_brain.png"
     # For simulation testing without downloading heavy nilearn datasets, 
     # we wrap it in try-except in case nilearn fails offline or takes too long.
     try:
