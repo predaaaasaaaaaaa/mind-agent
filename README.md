@@ -1,6 +1,6 @@
 # Mind Agent
 
-Mind Agent is a Telegram bot and CLI tool that analyzes how human brains react to your videos using Meta's TRIBE v2 AI model. It maps video content to predicted brain activations, generates heatmaps, and provides actionable editing suggestions to hit specific emotional or cognitive goals (like "excitement" or "memory").
+Mind Agent is a Telegram bot that analyzes how human brains react to your videos using Meta's TRIBE v2 AI model. It maps user goals to target brain regions and provides gap analysis and actionable video-editing suggestions based on predicted fMRI activation.
 
 ## Architecture
 
@@ -39,49 +39,40 @@ Mind Agent is a Telegram bot and CLI tool that analyzes how human brains react t
 
 ## Setup Instructions
 
-Assuming you already have the working `tribe-env` virtual environment and the `tribev2-cache` downloaded:
+(assumes user already has the venv + tribev2-cache)
 
-1. **Activate the environment**:
+1. Activate your virtual environment:
    ```bash
    source ~/tribe-env/bin/activate
    ```
-2. **Install requirements**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Environment variables**:
-   Copy `.env.example` to `.env` and insert your Telegram Bot Token.
+2. Copy the environment template and configure your token:
    ```bash
    cp .env.example .env
-   # Edit .env with your token
    ```
 
 ## Hardware Requirements
 
-- **RAM**: 8GB+ minimum
-- **Swap**: 15GB+ minimum
-- **Compute**: CPU execution takes ~1-3 hours per 20-second video.
+- 8GB+ RAM
+- 15GB+ swap
+- ~3 hours per video on CPU
 
 ## Usage
 
-### 1. Run Simulation (Fast, Fake Data)
-Verify the pipeline works end-to-end in seconds without heavy model loading:
+**How to run simulation:**
 ```bash
 python scripts/simulate_pipeline.py
 ```
 
-### 2. Run Real Inference (CLI)
-Run the heavy inference pipeline locally from your terminal:
+**How to run real inference:**
 ```bash
-python scripts/run_real_inference.py --video /path/to/video.mp4 --goal excitement
+python scripts/run_real_inference.py --video X.mp4 --goal Y
 ```
 
-### 3. Run the Telegram Bot
-Start the bot to handle incoming requests (runs in the background):
+**How to run the Telegram bot:**
 ```bash
 python src/telegram_bot.py
 ```
 
 ## Credits
 
-Powered by **Meta TRIBE v2**. The core model inference uses their implementation for predicting fMRI activations from video/audio features.
+Powered by Meta TRIBE v2.

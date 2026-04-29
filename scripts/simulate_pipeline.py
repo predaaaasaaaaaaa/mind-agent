@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+
 import numpy as np
 from src.region_mapping import voxels_to_regions
 from src.brain_viz import render_brain_heatmap

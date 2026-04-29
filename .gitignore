@@ -16,8 +16,8 @@ models/
 .vscode/
 .idea/
 
-/DS_Store
-Thumbss.db
+.DS_Store
+Thumbs.db
 
 *.log
 
